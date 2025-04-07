@@ -1,18 +1,10 @@
-
 -- git.lua
 local git = {}
 
--- Clone a repository
-function git.clone(repo_url)
-    os.execute("git clone " .. repo_url)
+function git.clone(url)
+    -- Escape special characters and wrap in quotes
+    local safe_url = string.format("%q", url)
+    os.execute("git clone " .. safe_url)
 end
 
--- Check Git version
-function git.version()
-    local handle = io.popen("git --version 2>&1")
-    local result = handle:read("*a")
-    handle:close()
-    return result
-end
-
-return git  -- Must return a table
+return git
